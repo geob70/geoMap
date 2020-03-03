@@ -1,6 +1,7 @@
 import React from "react";
 import Node from "./others/node/node";
 import { Dijkstra } from "../algorithm/dijkstra";
+import { astarSearch } from "../algorithm/a*";
 import "./map.css";
 
 class Map extends React.Component {
@@ -9,6 +10,7 @@ class Map extends React.Component {
     this.state = {
       grid: [],
       start: null,
+      algorithm: null,
       destination: null,
       mousePressed: false
     };
@@ -39,6 +41,11 @@ class Map extends React.Component {
     this.setState({ grid: tempGrid });
   };
 
+  handleChange = event => {
+    this.setState({ algorithm: event.target.value });
+    // console.log(this.state.algorithm, event.target.value);
+  };
+
   handleClickDown = (row, col) => {
     this.setState({ mousePressed: !this.state.mousePressed });
     const nGrid = setWall(this.state.grid, row, col);
@@ -51,13 +58,16 @@ class Map extends React.Component {
   };
 
   searchMap = () => {
-    const inVisitedOrder = Dijkstra(
-      this.state.grid,
-      this.state.start,
-      this.state.destination
-    );
-    this.animateMovement(inVisitedOrder[0]);
-    this.showPath(inVisitedOrder[1]);
+    const inVisitedOrder =
+      this.state.algorithm === "0"
+        ? Dijkstra(this.state.grid, this.state.start, this.state.destination)
+        : this.state.algorithm === "1"
+        ? astarSearch(this.state.grid, this.state.start, this.state.destination)
+        : null;
+    if (inVisitedOrder != null) {
+      this.animateMovement(inVisitedOrder[0]);
+      this.showPath(inVisitedOrder[1]);
+    }
   };
 
   animateMovement = grid => {
@@ -118,12 +128,16 @@ class Map extends React.Component {
     return (
       <div className="Map">
         <div className="Nav">
-          <button>Dijkstra</button>
-          <button>A*</button>
+          <select onChange={this.handleChange} id="algorithm">
+            <option value={null}>select an algorithm</option>
+            <option value={0}>dijkstra</option>
+            <option value={1}>a*</option>
+            <option value={2}>concurrent-dijkstra</option>
+          </select>
           <button onClick={() => this.searchMap()} className="run">
             run
           </button>
-          <button onClick={() => this.setDestination(5, 670)} className="run">
+          <button onClick={() => this.setDestination(256, 548)} className="run">
             start
           </button>
         </div>
@@ -143,7 +157,9 @@ const createNode = (row, col) => {
     key: row * 50 + col,
     row,
     col,
+    heuristic: null,
     distance: Infinity,
+    heuristicDistance: null,
     isStart: false,
     isEnd: false,
     isWall: false,

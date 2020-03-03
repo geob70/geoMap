@@ -33,7 +33,7 @@ function runAlgo(grid, start, destination) {
       if (neighbour.key in mapDistance) {
         if (node.distance + neighbour.distance < mapDistance[neighbour.key]) {
           neighbour.previousNode = node;
-          neighbours.distance = node.distance + neighbour.distance;
+          neighbour.distance = node.distance + neighbour.distance;
           mapDistance[neighbour.key] = node.distance + neighbour.distance;
         }
       } else {
@@ -82,7 +82,7 @@ function setNeighbour(grid, i, j) {
     if (i + 1 < 20 && !grid[i + 1][j].isWall) {
       grid[i][j].neighbours.push(grid[i + 1][j]);
     }
-    if (j + 1 < 49 && !grid[i][j + 1].isWall) {
+    if (j + 1 <= 49 && !grid[i][j + 1].isWall) {
       grid[i][j].neighbours.push(grid[i][j + 1]);
     }
     if (j - 1 >= 0 && !grid[i][j - 1].isWall) {
