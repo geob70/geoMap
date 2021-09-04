@@ -18,7 +18,7 @@ class Intro extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{color: "silver", fontSize: "30px"}}>
         <h3>Geo-Map</h3>
         <h5>{this.state.date.toLocaleTimeString()}.</h5>
       </div>

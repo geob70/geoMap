@@ -29,7 +29,7 @@ class App extends React.Component {
           Learn React
         </a> */}
           <Intro />
-          <button onClick={this.redirect}>let's go</button>
+          <button className="button" onClick={this.redirect}>let's go</button>
         </header>
       </div>
     );
