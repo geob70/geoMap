@@ -1,7 +1,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ### Link to live site
-https://ecstatic-benz-8d2eab.netlify.app/map
+https://ecstatic-benz-8d2eab.netlify.app
 
 ## Available Scripts
 
