@@ -12,7 +12,7 @@ class Map extends React.Component {
       grid: [],
       start: null,
       run: false,
-      algorithm: null,
+      algorithm: "0",
       destination: null,
       mousePressed: false,
     };
@@ -197,12 +197,13 @@ class Map extends React.Component {
       <div className="Map">
         <div className="Nav">
           <div>
-            <select onChange={this.handleChange} id="algorithm">
+            <img height="40" src="/g.png" alt="" />
+            {/* <select onChange={this.handleChange} id="algorithm">
               <option value={null}>select an algorithm</option>
               <option value={0}>dijkstra</option>
               <option value={1}>a*</option>
               <option value={2}>concurrent-dijkstra</option>
-            </select>
+            </select> */}
           </div>
           <div>
             <button
@@ -228,7 +229,10 @@ class Map extends React.Component {
               <div className="desc-div">
                 {/* <h3>Description</h3> */}
                 <span>Drag the images below to the board</span>
-                <span>{this.state.mousePressed.toString()}</span>
+                <span style={{ color: "green" }}>
+                  click down and drag the mouse cursor to add obstacles on the
+                  board
+                </span>
                 <span>
                   The <strong>car</strong> is the starting point, while the{" "}
                   <strong>home img</strong> is the destination
